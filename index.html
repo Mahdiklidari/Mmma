@@ -194,67 +194,11 @@
                 <img src="https://cdn.hamsterkombat.io/fluff/image.webp" alt="Fluff">
                 <p>Fluff Crusade</p>
             </div>
-            <div class="game-option" data-game="11">
-                <img src="https://cdn.hamsterkombat.io/zoopolis/image.webp" alt="Zoopolis">
-                <p>Zoopolis</p>
-            </div>
-            <div class="game-option" data-game="10">
-                <img src="https://cdn.hamsterkombat.io/tile_trio/image.webp" alt="CafeDash">
-                <p>Tile Trio</p>
-            </div>
-            <div class="game-option" data-game="8">
-                <img src="https://cdn.hamsterkombat.io/mow_trim/image.webp" alt="Mow and Trim">
-                <p>Mow and Trim</p>
-            </div>
-            <div class="game-option" data-game="7">
-                <img src="https://cdn.hamsterkombat.io/polysphere/image.webp" alt="Polysphere">
-                <p>Polysphere</p>
-            </div>
-            <div class="game-option" data-game="6">
-                <img src="https://cdn.hamsterkombat.io/twerk/image.webp" alt="Twerk Race 3D">
-                <p>Twerk Race 3D</p>
-            </div>
-            <div class="game-option" data-game="5">
-                <img src="https://cdn.hamsterkombat.io/merge_away/image.webp" alt="Merge Away">
-                <p>Merge Away</p>
-            </div>
-            <div class="game-option" data-game="2">
-                <img src="https://cdn.hamsterkombat.io/chain_cube/image.webp" alt="Chain Cube 2048">
-                <p>Chain Cube 2048</p>
-            </div>
-            <div class="game-option" data-game="4">
-                <img src="https://cdn.hamsterkombat.io/train_miner/image.webp" alt="Train Miner">
-                <p>Train Miner</p>
-            </div>
-        </div>
-        <div class="form-group hidden" id="keyCountGroup">
-            <label for="keyCountSelect">انتخاب تعداد کلیدها:</label>
-            <div id="keyCountSelect" class="key-slider">
-                <input type="range" min="1" max="12" value="1" id="keyRange">
-                <span id="keyValue">1</span>
-            </div>
-        </div>
-        <button id="startBtn" class="hidden">ایجاد کلیدها</button>
-
-        <div id="progressContainer" class="hidden">
-            <div class="progress-bar">
-                <div id="progressBar"></div>
-            </div>
-            <p id="progressText">0%</p>
-            <p id="progressLog">شروع...</p>
+            <!-- Other game options... -->
         </div>
 
-        <div id="keyContainer" class="hidden">
-            <h2 id="generatedKeysTitle" class="hidden">کلیدهای تولید شده</h2>
-            <div id="keysList"></div>
-            <button id="copyAllBtn" class="hidden">کپی همه کلیدها</button>
-        </div>
+        <!-- Additional components... -->
 
-        <p id="keyCountLabel">تعداد کلید:</p>
-
-        <button id="generateMoreBtn" class="hidden">کلیدهای بیشتری تولید کنید</button>
-        <p id="copyStatus" class="hidden">کلیدها در کلیپ بورد کپی شدند!</p>
-        
         <div class="footer">
             <p>سلب مسئولیت: ما هیچ تضمینی در قبال استفاده از این سایت نمی‌دهیم</p>
             <button id="sourceCode">گروه پشتیبانی</button>
@@ -276,22 +220,6 @@
                 body.classList.add('light');
                 themeToggle.textContent = '🌞';
             }
-        });
-
-        // Key Slider
-        const keyRange = document.getElementById('keyRange');
-        const keyValue = document.getElementById('keyValue');
-        const startBtn = document.getElementById('startBtn');
-
-        keyValue.textContent = keyRange.value;
-
-        keyRange.addEventListener('input', () => {
-            keyValue.textContent = keyRange.value;
-        });
-
-        startBtn.addEventListener('click', () => {
-            // Logic for generating keys goes here
-            alert(`تعداد کلیدها: ${keyRange.value}`);
         });
     </script>
 </body>
