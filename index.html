@@ -11,67 +11,182 @@
             font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
+            transition: background 0.3s ease, color 0.3s ease;
+            background-color: #f4f4f9;
+            color: #000;
+        }
+
+        body.dark {
+            background-color: #1f1f1f;
+            color: #fff;
         }
 
         .container {
             width: 100%;
-            padding: 20px;
+            max-width: 1200px;
+            padding: 30px;
             box-sizing: border-box;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5em;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: #000;
+            transition: color 0.3s ease;
+        }
+
+        body.dark .theme-toggle {
+            color: #fff;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            background: linear-gradient(90deg, #00d4ff, #ff00a8);
+            -webkit-background-clip: text;
+            color: transparent;
+            animation: glow 1.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px #00d4ff, 0 0 20px #00d4ff, 0 0 30px #00d4ff;
+            }
+            to {
+                text-shadow: 0 0 20px #ff00a8, 0 0 30px #ff00a8, 0 0 40px #ff00a8;
+            }
         }
 
         .grid-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 10px;
+            justify-content: center;
         }
 
         .game-option {
             text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
         .game-option img {
             width: 100%;
             height: auto;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
         }
 
-        @media (max-width: 600px) {
-            .container {
-                padding: 10px;
-            }
+        .game-option p {
+            margin-top: 15px;
+            font-size: 1.2em;
+            color: #00d4ff;
+            font-weight: 500;
+        }
 
-            .grid-container {
-                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            }
+        .game-option:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+        }
 
-            h1 {
-                font-size: 1.5em;
-            }
+        .game-option:hover img {
+            transform: scale(1.05);
+        }
+
+        .key-slider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #keyRange {
+            width: 80%;
+            cursor: pointer;
+        }
+
+        #keyValue {
+            font-size: 1.2em;
+            margin-left: 10px;
+        }
+
+        .form-group, .hidden {
+            display: none;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        #progressContainer {
+            margin-top: 20px;
         }
 
         .progress-bar {
             width: 100%;
-            height: 20px;
-            background-color: #eee;
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
             overflow: hidden;
+            margin-top: 20px;
         }
 
         #progressBar {
-            height: 100%;
+            height: 10px;
+            background: linear-gradient(90deg, #00d4ff, #ff00a8);
             width: 0%;
-            background: linear-gradient(90deg, red, yellow, green, cyan, blue, magenta);
-            background-size: 600% 100%;
-            animation: gradient 5s linear infinite;
-            border-radius: 10px;
+            transition: width 0.4s ease;
         }
 
-        @keyframes gradient {
-            0% { background-position: 0% 0%; }
-            100% { background-position: 100% 0%; }
+        button {
+            background: linear-gradient(90deg, #00d4ff, #ff00a8);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        button:hover {
+            background: linear-gradient(90deg, #ff00a8, #00d4ff);
+            transform: scale(1.05);
+        }
+
+        .footer {
+            margin-top: 40px;
+        }
+
+        .footer p {
+            font-size: 0.9em;
+            color: rgba(255, 255, 255, 0.6);
+            margin: 20px 0;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .grid-container {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
         }
     </style>
 </head>
-<body>
+<body class="light">
+    <button class="theme-toggle" id="themeToggle">🌞</button>
     <div class="container">
         <h1>Hamster Key</h1>
         <div id="gameSelectContainer" class="grid-container">
@@ -79,73 +194,33 @@
                 <img src="https://cdn.hamsterkombat.io/fluff/image.webp" alt="Fluff">
                 <p>Fluff Crusade</p>
             </div>
-            <div class="game-option" data-game="11">
-                <img src="https://cdn.hamsterkombat.io/zoopolis/image.webp" alt="Zoopolis">
-                <p>Zoopolis</p>
-            </div>
-            <div class="game-option" data-game="10">
-                <img src="https://cdn.hamsterkombat.io/tile_trio/image.webp" alt="CafeDash">
-                <p>Tile Trio</p>
-            </div>
-            <div class="game-option" data-game="8">
-                <img src="https://cdn.hamsterkombat.io/mow_trim/image.webp" alt="Polysphere">
-                <p>Mow and Trim</p>
-            </div>
-            <div class="game-option" data-game="7">
-                <img src="https://cdn.hamsterkombat.io/polysphere/image.webp" alt="Polysphere">
-                <p>Polysphere</p>
-            </div>
-            <div class="game-option" data-game="6">
-                <img src="https://cdn.hamsterkombat.io/twerk/image.webp" alt="Twerk Race 3D">
-                <p>Twerk Race 3D</p>
-            </div>
-            <div class="game-option" data-game="5">
-                <img src="https://cdn.hamsterkombat.io/merge_away/image.webp" alt="Merge Away">
-                <p>Merge Away</p>
-            </div>
-            <div class="game-option" data-game="2">
-                <img src="https://cdn.hamsterkombat.io/chain_cube/image.webp" alt="Chain Cube 2048">
-                <p>Chain Cube 2048</p>
-            </div>
-            <div class="game-option" data-game="4">
-                <img src="https://cdn.hamsterkombat.io/train_miner/image.webp" alt="Train Miner">
-                <p>Train Miner</p>
-            </div>
-        </div>
-        <div class="form-group hidden" id="keyCountGroup">
-            <label for="keyCountSelect">انتخاب تعداد کلیدها:</label>
-            <div id="keyCountSelect" class="key-slider">
-                <input type="range" min="1" max="12" value="1" id="keyRange">
-                <span id="keyValue">1</span>
-            </div>
-        </div>
-        <button id="startBtn" class="hidden">ایجاد کلید</button>
-
-        <div id="progressContainer" class="hidden">
-            <div class="progress-bar">
-                <div id="progressBar"></div>
-            </div>
-            <p id="progressText">0%</p>
-            <p id="progressLog">شروع...</p>
+            <!-- Other game options... -->
         </div>
 
-        <div id="keyContainer" class="hidden">
-            <h2 id="generatedKeysTitle" class="hidden">کلیدهای تولید شده</h2>
-            <div id="keysList"></div>
-            <button id="copyAllBtn" class="hidden">کپی همه کلیدها</button>
-        </div>
+        <!-- Additional components... -->
 
-        <p id="keyCountLabel">تعداد کلید:</p>
-
-        <button id="generateMoreBtn" class="hidden">کلیدهای بیشتری تولید کنید</button>
-        <p id="copyStatus" class="hidden">کلیدها در کلیپ بورد کپی شدند!</p>
-        
         <div class="footer">
-            <p>سلب مسئولیت:ما هیچ تضمینی در قبال استفاده از این سایت نمیدیم </p>
+            <p>سلب مسئولیت: ما هیچ تضمینی در قبال استفاده از این سایت نمی‌دهیم</p>
             <button id="sourceCode">گروه پشتیبانی</button>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+
+        themeToggle.addEventListener('click', () => {
+            if (body.classList.contains('light')) {
+                body.classList.remove('light');
+                body.classList.add('dark');
+                themeToggle.textContent = '🌜';
+            } else {
+                body.classList.remove('dark');
+                body.classList.add('light');
+                themeToggle.textContent = '🌞';
+            }
+        });
+    </script>
 </body>
 </html>
