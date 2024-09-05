@@ -1,0 +1,132 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #0d0d0d; /* پس زمینه تیره و مدرن */
+    color: #e0e0e0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+}
+
+/* تغییرات مدرن و آینده‌نگر برای گزینه‌های بازی */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 20px;
+    margin-bottom: 20px;
+    max-height: 300px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.game-option {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 15px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out, border-color 0.3s ease-in-out;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.game-option.selected {
+    transform: scale(1.1);
+    border-color: #00ffcc;
+    background-color: rgba(0, 255, 204, 0.1); /* رنگ پس زمینه نئونی */
+}
+
+.game-option img {
+    width: 100%;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+}
+
+.game-option:hover img {
+    transform: scale(1.05);
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 255, 204, 0.3);
+    padding: 30px;
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+    backdrop-filter: blur(10px);
+}
+
+h1 {
+    margin-bottom: 25px;
+    font-size: 2.5em;
+    color: #00ffcc;
+    text-shadow: 0 0 15px rgba(0, 255, 204, 0.7);
+}
+
+button {
+    background-color: #00ffcc;
+    color: #0d0d0d;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: #00ffaa;
+    transform: translateY(-5px);
+}
+
+/* استایل نئونی برای نوار پیشرفت */
+.progress-bar {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 50px;
+    overflow: hidden;
+    margin-top: 25px;
+    height: 35px;
+    position: relative;
+    box-shadow: 0 0 15px rgba(0, 255, 204, 0.5);
+}
+
+.progress-bar div {
+    height: 100%;
+    background: linear-gradient(90deg, #00ffcc, #00ffaa, #00ff88);
+    width: 0;
+    transition: width 0.5s;
+}
+
+#progressText {
+    margin-top: 15px;
+    font-weight: 600;
+    color: #00ffcc;
+    font-size: 1.5em;
+}
+
+.footer {
+    margin-top: 25px;
+    font-size: 14px;
+    color: #777;
+    text-align: center;
+}
+
+/* بهبود ریسپانسیو برای موبایل */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 2em;
+    }
+
+    .container {
+        padding: 20px;
+        max-width: 100%;
+    }
+
+    .game-option {
+        padding: 10px;
+    }
+}
