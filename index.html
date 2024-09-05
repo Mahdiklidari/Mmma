@@ -1,211 +1,80 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تولید کلید</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #111;
-            color: #eee;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 800px;
-            margin: auto;
-            padding: 20px;
-        }
-        .game-option {
-            display: inline-block;
-            padding: 10px 20px;
-            margin: 10px;
-            border: 2px solid #555;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s, color 0.3s;
-        }
-        .game-option:hover {
-            background-color: #333;
-        }
-        .game-option.selected {
-            background-color: #1e90ff;
-            color: #fff;
-            border-color: #1e90ff;
-        }
-        .hidden {
-            display: none;
-        }
-        #keyCountGroup {
-            margin: 20px 0;
-        }
-        .progress-container {
-            margin: 20px 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100px;
-        }
-        .progress-circle {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            border: 5px solid #fff;
-            position: relative;
-            margin: auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-        }
-        .progress-circle::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            border: 5px solid #1e90ff;
-            border-top-color: transparent;
-            border-right-color: transparent;
-            animation: spin 1.5s linear infinite;
-        }
-        .progress-text {
-            position: relative;
-            color: #fff;
-            font-size: 24px;
-        }
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        .key-item {
-            margin: 20px 0;
-        }
-        .copyKeyBtn {
-            margin: 10px 0;
-            padding: 10px 20px;
-            border: none;
-            background-color: #1e90ff;
-            color: #fff;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-        .copyKeyBtn:hover {
-            background-color: #1c86ee;
-        }
-        .footer {
-            margin: 20px 0;
-            font-size: 14px;
-        }
-    </style>
+    <title>Hamster Key</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
-        <h1>تولید کلید</h1>
-        <div id="gameOptions">
-            <div class="game-option" data-game="game1">بازی 1</div>
-            <div class="game-option" data-game="game2">بازی 2</div>
-            <div class="game-option" data-game="game3">بازی 3</div>
+        <h1>Hamster Key</h1>
+        <div id="gameSelectContainer" class="grid-container">
+            <div class="game-option" data-game="12">
+                <img src="https://cdn.hamsterkombat.io/fluff/image.webp" alt="Fluff">
+                <p>Fluff Crusade</p>
+            </div>
+            <div class="game-option" data-game="11">
+                <img src="https://cdn.hamsterkombat.io/zoopolis/image.webp" alt="Zoopolis">
+                <p>Zoopolis</p>
+            </div>
+            <div class="game-option" data-game="10">
+                <img src="https://cdn.hamsterkombat.io/tile_trio/image.webp" alt="Tile Trio">
+                <p>Tile Trio</p>
+            </div>
+            <div class="game-option" data-game="8">
+                <img src="https://cdn.hamsterkombat.io/mow_trim/image.webp" alt="Mow and Trim">
+                <p>Mow and Trim</p>
+            </div>
+            <div class="game-option" data-game="7">
+                <img src="https://cdn.hamsterkombat.io/polysphere/image.webp" alt="Polysphere">
+                <p>Polysphere</p>
+            </div>
+            <div class="game-option" data-game="6">
+                <img src="https://cdn.hamsterkombat.io/twerk/image.webp" alt="Twerk Race 3D">
+                <p>Twerk Race 3D</p>
+            </div>
+            <div class="game-option" data-game="5">
+                <img src="https://cdn.hamsterkombat.io/merge_away/image.webp" alt="Merge Away">
+                <p>Merge Away</p>
+            </div>
+            <div class="game-option" data-game="2">
+                <img src="https://cdn.hamsterkombat.io/chain_cube/image.webp" alt="Chain Cube 2048">
+                <p>Chain Cube 2048</p>
+            </div>
+            <div class="game-option" data-game="4">
+                <img src="https://cdn.hamsterkombat.io/train_miner/image.webp" alt="Train Miner">
+                <p>Train Miner</p>
+            </div>
         </div>
-        <div id="keyCountGroup" class="hidden">
-            <label for="keyRange">تعداد کلیدها:</label>
-            <input type="range" id="keyRange" min="1" max="10" value="1">
-            <span id="keyValue">1</span>
+        <div class="form-group hidden" id="keyCountGroup">
+            <label for="keyCountSelect">انتخاب تعداد کلیدها:</label>
+            <div id="keyCountSelect" class="key-slider">
+                <input type="range" min="1" max="12" value="1" id="keyRange">
+                <span id="keyValue">1</span>
+            </div>
         </div>
-        <button id="startBtn" class="hidden">شروع</button>
+        <button id="startBtn" class="hidden">ایجاد کلید</button>
 
         <div id="progressContainer" class="hidden">
-            <div class="progress-container">
-                <div class="progress-circle">
-                    <div id="progressText" class="progress-text">0%</div>
-                </div>
+            <div class="progress-bar">
+                <div id="progressBar"></div>
             </div>
-            <p id="progressLog">در حال تولید کلید...</p>
+            <p id="progressText">0%</p>
+            <p id="progressLog">شروع...</p>
         </div>
-
         <div id="keyContainer" class="hidden">
             <div class="key-item">
                 <input type="text" id="keyInput" readonly>
                 <button class="copyKeyBtn" id="copyKeyBtn">کپی</button>
             </div>
             <p id="copyStatus"></p>
-        </div>
-
+        </div>    
         <div class="footer">
             <p>وب‌سایت توسط Hamster Games طراحی شده است</p>
         </div>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const gameOptions = document.querySelectorAll('.game-option');
-            const keyCountGroup = document.getElementById('keyCountGroup');
-            const startBtn = document.getElementById('startBtn');
-            const progressContainer = document.getElementById('progressContainer');
-            const progressCircle = document.querySelector('.progress-circle');
-            const progressText = document.getElementById('progressText');
-            const progressLog = document.getElementById('progressLog');
-            const keyContainer = document.getElementById('keyContainer');
-            const keyInput = document.getElementById('keyInput');
-            const copyKeyBtn = document.getElementById('copyKeyBtn');
-            const copyStatus = document.getElementById('copyStatus');
-            const keyRange = document.getElementById('keyRange');
-            const keyValue = document.getElementById('keyValue');
-
-            let selectedGame = null;
-
-            gameOptions.forEach(option => {
-                option.addEventListener('click', function() {
-                    gameOptions.forEach(opt => opt.classList.remove('selected'));
-                    this.classList.add('selected');
-                    selectedGame = this.getAttribute('data-game');
-                    keyCountGroup.classList.remove('hidden');
-                    startBtn.classList.remove('hidden');
-                });
-            });
-
-            keyRange.addEventListener('input', function() {
-                keyValue.textContent = this.value;
-            });
-
-            startBtn.addEventListener('click', function() {
-                startBtn.classList.add('hidden');
-                progressContainer.classList.remove('hidden');
-                keyContainer.classList.add('hidden');
-
-                let progress = 0;
-                const interval = setInterval(() => {
-                    progress += 1;
-                    progressText.textContent = progress + '%';
-                    progressCircle.style.background = `conic-gradient(#1e90ff ${progress}%, #333 ${progress}%)`;
-                    progressLog.textContent = `در حال تولید کلید (${progress}%)...`;
-
-                    if (progress >= 100) {
-                        clearInterval(interval);
-                        progressLog.textContent = 'کلید تولید شد!';
-                        keyContainer.classList.remove('hidden');
-                        keyInput.value = generateKey();
-                    }
-                }, 100); // Adjust speed as needed
-            });
-
-            copyKeyBtn.addEventListener('click', function() {
-                keyInput.select();
-                document.execCommand('copy');
-                copyStatus.textContent = 'کلید کپی شد!';
-                setTimeout(() => copyStatus.textContent = '', 2000);
-            });
-
-            function generateKey() {
-                // Your key generation logic here
-                return 'ABC123-XYZ456'; // Example key
-            }
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
