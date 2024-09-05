@@ -29,6 +29,7 @@
             box-sizing: border-box;
             max-width: 1200px;
             margin: 0 auto;
+            position: relative;
         }
 
         h1 {
@@ -70,6 +71,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
+            margin-top: 20px;
         }
 
         .game-option {
@@ -80,6 +82,7 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
         .game-option img {
@@ -93,6 +96,7 @@
             margin-top: 15px;
             font-size: 1.2em;
             color: #00d4ff;
+            font-weight: 500;
         }
 
         .game-option:hover {
@@ -101,7 +105,7 @@
         }
 
         .game-option:hover img {
-            transform: scale(1.1);
+            transform: scale(1.05);
         }
 
         .game-option::before {
@@ -135,6 +139,7 @@
             background: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
             overflow: hidden;
+            margin-top: 20px;
         }
 
         #progressBar {
@@ -163,6 +168,7 @@
         .footer p {
             font-size: 0.9em;
             color: rgba(255, 255, 255, 0.6);
+            margin: 20px 0;
         }
 
         @media (max-width: 600px) {
@@ -222,24 +228,4 @@
         <div class="form-group hidden" id="keyCountGroup">
             <label for="keyCountSelect">انتخاب تعداد کلیدها:</label>
             <div id="keyCountSelect" class="key-slider">
-                <input type="range" min="1" max="12" value="1" id="keyRange">
-                <span id="keyValue">1</span>
-            </div>
-        </div>
-        <button id="startBtn" class="hidden">ایجاد کلیدها</button>
-
-        <div id="progressContainer" class="hidden">
-            <div class="progress-bar">
-                <div id="progressBar"></div>
-            </div>
-            <p id="progressText">0%</p>
-            <p id="progressLog">شروع...</p>
-        </div>
-
-        <div id="keyContainer" class="hidden">
-            <h2 id="generatedKeysTitle" class="hidden">کلیدهای تولید شده</h2>
-            <div id="keysList"></div>
-            <button id="copyAllBtn" class="hidden">کپی همه کلیدها</button>
-        </div>
-
-        <p id="keyCountLabel">ت
+                <input type="range" min="1" max="12" value="1" id="
