@@ -1,296 +1,210 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hamster Key</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>تولید کلید</title>
     <style>
         body {
-            font-family: 'Roboto', sans-serif;
+            font-family: Arial, sans-serif;
+            background-color: #111;
+            color: #eee;
+            text-align: center;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f9;
-            color: #000;
-            transition: background 0.3s ease, color 0.3s ease;
         }
-
-        body.dark {
-            background-color: #1f1f1f;
-            color: #fff;
-        }
-
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
+            max-width: 800px;
+            margin: auto;
             padding: 20px;
-            text-align: center;
-            background: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
-
-        .theme-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            font-size: 1.5em;
-            cursor: pointer;
-            background: none;
-            border: none;
-            color: #000;
-            transition: color 0.3s ease;
-        }
-
-        body.dark .theme-toggle {
-            color: #fff;
-        }
-
-        h1 {
-            font-size: 2.5em;
-            margin-bottom: 20px;
-            background: linear-gradient(90deg, #00d4ff, #ff00a8);
-            -webkit-background-clip: text;
-            color: transparent;
-            animation: glow 1.5s ease-in-out infinite alternate;
-        }
-
-        @keyframes glow {
-            from {
-                text-shadow: 0 0 10px #00d4ff, 0 0 20px #00d4ff, 0 0 30px #00d4ff;
-            }
-            to {
-                text-shadow: 0 0 20px #ff00a8, 0 0 30px #ff00a8, 0 0 40px #ff00a8;
-            }
-        }
-
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
         .game-option {
-            text-align: center;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 15px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .game-option img {
-            width: 100%;
-            height: auto;
-            border-radius: 10px;
-            transition: transform 0.3s ease;
-        }
-
-        .game-option p {
-            margin-top: 10px;
-            font-size: 1.1em;
-            color: #00d4ff;
-            font-weight: 500;
-        }
-
-        .game-option:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
-        }
-
-        .game-option:hover img {
-            transform: scale(1.05);
-        }
-
-        .key-slider {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 20px 0;
-        }
-
-        #keyRange {
-            width: 80%;
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px;
+            border: 2px solid #555;
+            border-radius: 5px;
             cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
         }
-
-        #keyValue {
-            font-size: 1.2em;
-            margin-left: 10px;
+        .game-option:hover {
+            background-color: #333;
         }
-
-        .form-group, .hidden {
+        .game-option.selected {
+            background-color: #1e90ff;
+            color: #fff;
+            border-color: #1e90ff;
+        }
+        .hidden {
             display: none;
         }
-
-        #progressContainer {
-            margin-top: 20px;
-        }
-
-        .progress-bar {
-            width: 100%;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            overflow: hidden;
-            margin-top: 20px;
-        }
-
-        #progressBar {
-            height: 10px;
-            background: linear-gradient(90deg, #00d4ff, #ff00a8);
-            width: 0%;
-            transition: width 0.4s ease;
-        }
-
-        button {
-            background: linear-gradient(90deg, #00d4ff, #ff00a8);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 30px;
-            font-size: 1em;
-            cursor: pointer;
-            transition: background 0.3s ease, transform 0.3s ease;
-            margin-top: 20px;
-        }
-
-        button:hover {
-            background: linear-gradient(90deg, #ff00a8, #00d4ff);
-            transform: scale(1.05);
-        }
-
-        .footer {
-            margin-top: 40px;
-        }
-
-        .footer p {
-            font-size: 0.9em;
-            color: rgba(255, 255, 255, 0.6);
+        #keyCountGroup {
             margin: 20px 0;
         }
-
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 2em;
-            }
-
-            .grid-container {
-                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            }
+        .progress-container {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+        }
+        .progress-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 5px solid #fff;
+            position: relative;
+            margin: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        .progress-circle::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 5px solid #1e90ff;
+            border-top-color: transparent;
+            border-right-color: transparent;
+            animation: spin 1.5s linear infinite;
+        }
+        .progress-text {
+            position: relative;
+            color: #fff;
+            font-size: 24px;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .key-item {
+            margin: 20px 0;
+        }
+        .copyKeyBtn {
+            margin: 10px 0;
+            padding: 10px 20px;
+            border: none;
+            background-color: #1e90ff;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .copyKeyBtn:hover {
+            background-color: #1c86ee;
+        }
+        .footer {
+            margin: 20px 0;
+            font-size: 14px;
         }
     </style>
 </head>
-<body class="light">
-    <button class="theme-toggle" id="themeToggle">🌞</button>
+<body>
     <div class="container">
-        <h1>Hamster Key</h1>
-        <div id="gameSelectContainer" class="grid-container">
-            <div class="game-option" data-game="12">
-                <img src="https://cdn.hamsterkombat.io/fluff/image.webp" alt="Fluff">
-                <p>Fluff Crusade</p>
-            </div>
-            <div class="game-option" data-game="11">
-                <img src="https://cdn.hamsterkombat.io/zoopolis/image.webp" alt="Zoopolis">
-                <p>Zoopolis</p>
-            </div>
-            <div class="game-option" data-game="10">
-                <img src="https://cdn.hamsterkombat.io/tile_trio/image.webp" alt="CafeDash">
-                <p>Tile Trio</p>
-            </div>
-            <div class="game-option" data-game="8">
-                <img src="https://cdn.hamsterkombat.io/mow_trim/image.webp" alt="Mow and Trim">
-                <p>Mow and Trim</p>
-            </div>
-            <div class="game-option" data-game="7">
-                <img src="https://cdn.hamsterkombat.io/polysphere/image.webp" alt="Polysphere">
-                <p>Polysphere</p>
-            </div>
-            <div class="game-option" data-game="6">
-                <img src="https://cdn.hamsterkombat.io/twerk/image.webp" alt="Twerk Race 3D">
-                <p>Twerk Race 3D</p>
-            </div>
-            <div class="game-option" data-game="5">
-                <img src="https://cdn.hamsterkombat.io/merge_away/image.webp" alt="Merge Away">
-                <p>Merge Away</p>
-            </div>
-            <div class="game-option" data-game="2">
-                <img src="https://cdn.hamsterkombat.io/chain_cube/image.webp" alt="Chain Cube 2048">
-                <p>Chain Cube 2048</p>
-            </div>
-            <div class="game-option" data-game="4">
-                <img src="https://cdn.hamsterkombat.io/train_miner/image.webp" alt="Train Miner">
-                <p>Train Miner</p>
-            </div>
+        <h1>تولید کلید</h1>
+        <div id="gameOptions">
+            <div class="game-option" data-game="game1">بازی 1</div>
+            <div class="game-option" data-game="game2">بازی 2</div>
+            <div class="game-option" data-game="game3">بازی 3</div>
         </div>
-        <div class="form-group hidden" id="keyCountGroup">
-            <label for="keyCountSelect">انتخاب تعداد کلیدها:</label>
-            <div id="keyCountSelect" class="key-slider">
-                <input type="range" min="1" max="12" value="1" id="keyRange">
-                <span id="keyValue">1</span>
-            </div>
+        <div id="keyCountGroup" class="hidden">
+            <label for="keyRange">تعداد کلیدها:</label>
+            <input type="range" id="keyRange" min="1" max="10" value="1">
+            <span id="keyValue">1</span>
         </div>
-        <button id="startBtn" class="hidden">ایجاد کلیدها</button>
+        <button id="startBtn" class="hidden">شروع</button>
 
         <div id="progressContainer" class="hidden">
-            <div class="progress-bar">
-                <div id="progressBar"></div>
+            <div class="progress-container">
+                <div class="progress-circle">
+                    <div id="progressText" class="progress-text">0%</div>
+                </div>
             </div>
-            <p id="progressText">0%</p>
-            <p id="progressLog">شروع...</p>
+            <p id="progressLog">در حال تولید کلید...</p>
         </div>
 
         <div id="keyContainer" class="hidden">
-            <h2 id="generatedKeysTitle" class="hidden">کلیدهای تولید شده</h2>
-            <div id="keysList"></div>
-            <button id="copyAllBtn" class="hidden">کپی همه کلیدها</button>
+            <div class="key-item">
+                <input type="text" id="keyInput" readonly>
+                <button class="copyKeyBtn" id="copyKeyBtn">کپی</button>
+            </div>
+            <p id="copyStatus"></p>
         </div>
 
-        <p id="keyCountLabel">تعداد کلید:</p>
-
-        <button id="generateMoreBtn" class="hidden">کلیدهای بیشتری تولید کنید</button>
-        <p id="copyStatus" class="hidden">کلیدها در کلیپ بورد کپی شدند!</p>
-        
         <div class="footer">
-            <p>سلب مسئولیت: ما هیچ تضمینی در قبال استفاده از این سایت نمی‌دهیم</p>
-            <button id="sourceCode">گروه پشتیبانی</button>
+            <p>وب‌سایت توسط Hamster Games طراحی شده است</p>
         </div>
     </div>
 
     <script>
-        // Theme Toggle
-        const themeToggle = document.getElementById('themeToggle');
-        const body = document.body;
+        document.addEventListener('DOMContentLoaded', function() {
+            const gameOptions = document.querySelectorAll('.game-option');
+            const keyCountGroup = document.getElementById('keyCountGroup');
+            const startBtn = document.getElementById('startBtn');
+            const progressContainer = document.getElementById('progressContainer');
+            const progressCircle = document.querySelector('.progress-circle');
+            const progressText = document.getElementById('progressText');
+            const progressLog = document.getElementById('progressLog');
+            const keyContainer = document.getElementById('keyContainer');
+            const keyInput = document.getElementById('keyInput');
+            const copyKeyBtn = document.getElementById('copyKeyBtn');
+            const copyStatus = document.getElementById('copyStatus');
+            const keyRange = document.getElementById('keyRange');
+            const keyValue = document.getElementById('keyValue');
 
-        themeToggle.addEventListener('click', () => {
-            if (body.classList.contains('light')) {
-                body.classList.remove('light');
-                body.classList.add('dark');
-                themeToggle.textContent = '🌜';
-            } else {
-                body.classList.remove('dark');
-                body.classList.add('light');
-                themeToggle.textContent = '🌞';
+            let selectedGame = null;
+
+            gameOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    gameOptions.forEach(opt => opt.classList.remove('selected'));
+                    this.classList.add('selected');
+                    selectedGame = this.getAttribute('data-game');
+                    keyCountGroup.classList.remove('hidden');
+                    startBtn.classList.remove('hidden');
+                });
+            });
+
+            keyRange.addEventListener('input', function() {
+                keyValue.textContent = this.value;
+            });
+
+            startBtn.addEventListener('click', function() {
+                startBtn.classList.add('hidden');
+                progressContainer.classList.remove('hidden');
+                keyContainer.classList.add('hidden');
+
+                let progress = 0;
+                const interval = setInterval(() => {
+                    progress += 1;
+                    progressText.textContent = progress + '%';
+                    progressCircle.style.background = `conic-gradient(#1e90ff ${progress}%, #333 ${progress}%)`;
+                    progressLog.textContent = `در حال تولید کلید (${progress}%)...`;
+
+                    if (progress >= 100) {
+                        clearInterval(interval);
+                        progressLog.textContent = 'کلید تولید شد!';
+                        keyContainer.classList.remove('hidden');
+                        keyInput.value = generateKey();
+                    }
+                }, 100); // Adjust speed as needed
+            });
+
+            copyKeyBtn.addEventListener('click', function() {
+                keyInput.select();
+                document.execCommand('copy');
+                copyStatus.textContent = 'کلید کپی شد!';
+                setTimeout(() => copyStatus.textContent = '', 2000);
+            });
+
+            function generateKey() {
+                // Your key generation logic here
+                return 'ABC123-XYZ456'; // Example key
             }
-        });
-
-        // Key Slider
-        const keyRange = document.getElementById('keyRange');
-        const keyValue = document.getElementById('keyValue');
-        const startBtn = document.getElementById('startBtn');
-
-        keyValue.textContent = keyRange.value;
-
-        keyRange.addEventListener('input', () => {
-            keyValue.textContent = keyRange.value;
-        });
-
-        startBtn.addEventListener('click', () => {
-            // Logic for generating keys goes here
-            alert(`تعداد کلیدها: ${keyRange.value}`);
         });
     </script>
 </body>
