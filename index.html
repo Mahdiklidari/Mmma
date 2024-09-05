@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hamster Key</title>
+    <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -25,15 +26,15 @@
 
         .container {
             width: 100%;
+            max-width: 1200px;
             padding: 30px;
             box-sizing: border-box;
-            max-width: 1200px;
             margin: 0 auto;
+            text-align: center;
         }
 
         h1 {
             font-size: 3em;
-            text-align: center;
             margin-bottom: 40px;
             background: linear-gradient(90deg, #00d4ff, #ff00a8);
             -webkit-background-clip: text;
@@ -70,6 +71,8 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
+            justify-content: center;
+            margin-top: 20px;
         }
 
         .game-option {
@@ -80,6 +83,7 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
         .game-option img {
@@ -93,6 +97,7 @@
             margin-top: 15px;
             font-size: 1.2em;
             color: #00d4ff;
+            font-weight: 500;
         }
 
         .game-option:hover {
@@ -101,33 +106,27 @@
         }
 
         .game-option:hover img {
-            transform: scale(1.1);
-        }
-
-        .game-option::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: -75%;
-            width: 50%;
-            height: 300%;
-            background: linear-gradient(120deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
-            transform: rotate(45deg);
-            transition: 0.5s;
-        }
-
-        .game-option:hover::before {
-            left: 150%;
+            transform: scale(1.05);
         }
 
         #keyCountGroup, #progressContainer, #keyContainer, .footer {
             margin-top: 40px;
-            text-align: center;
+        }
+
+        #keyCountSelect {
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         #keyCountSelect input[type="range"] {
-            width: 100%;
+            width: 80%;
             cursor: pointer;
+        }
+
+        #keyCountSelect span {
+            font-size: 1.2em;
+            margin-left: 10px;
         }
 
         .progress-bar {
@@ -135,6 +134,7 @@
             background: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
             overflow: hidden;
+            margin-top: 20px;
         }
 
         #progressBar {
@@ -163,6 +163,7 @@
         .footer p {
             font-size: 0.9em;
             color: rgba(255, 255, 255, 0.6);
+            margin: 20px 0;
         }
 
         @media (max-width: 600px) {
@@ -178,8 +179,8 @@
 </head>
 <body class="light">
     <div class="container">
-        <h1>Hamster Key</h1>
         <button class="theme-toggle" id="themeToggle">🌞</button>
+        <h1>Hamster Key</h1>
         <div id="gameSelectContainer" class="grid-container">
             <div class="game-option" data-game="12">
                 <img src="https://cdn.hamsterkombat.io/fluff/image.webp" alt="Fluff">
@@ -190,7 +191,7 @@
                 <p>Zoopolis</p>
             </div>
             <div class="game-option" data-game="10">
-                <img src="https://cdn.hamsterkombat.io/tile_trio/image.webp" alt="Tile Trio">
+                <img src="https://cdn.hamsterkombat.io/tile_trio/image.webp" alt="CafeDash">
                 <p>Tile Trio</p>
             </div>
             <div class="game-option" data-game="8">
@@ -221,11 +222,12 @@
 
         <div class="form-group hidden" id="keyCountGroup">
             <label for="keyCountSelect">انتخاب تعداد کلیدها:</label>
-            <div id="keyCountSelect" class="key-slider">
+            <div id="keyCountSelect">
                 <input type="range" min="1" max="12" value="1" id="keyRange">
                 <span id="keyValue">1</span>
             </div>
         </div>
+
         <button id="startBtn" class="hidden">ایجاد کلیدها</button>
 
         <div id="progressContainer" class="hidden">
@@ -241,35 +243,49 @@
             <div id="keysList"></div>
             <button id="copyAllBtn" class="hidden">کپی همه کلیدها</button>
         </div>
+
         <p id="keyCountLabel">تعداد کلید:</p>
+
         <button id="generateMoreBtn" class="hidden">کلیدهای بیشتری تولید کنید</button>
         <p id="copyStatus" class="hidden">کلیدها در کلیپ بورد کپی شدند!</p>
         
         <div class="footer">
-            <p>سلب مسئولیت: ما هیچ تضمینی در قبال استفاده از این سایت نمی‌دهیم.</p>
+            <p>سلب مسئولیت: ما هیچ تضمینی در قبال استفاده از این سایت نمی‌دهیم</p>
             <button id="sourceCode">گروه پشتیبانی</button>
         </div>
     </div>
 
     <script>
-        const themeToggleBtn = document.getElementById('themeToggle');
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
         const body = document.body;
 
-        // Load the user's saved theme preference (if exists)
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        body.classList = savedTheme;
-        themeToggleBtn.textContent = savedTheme === 'light' ? '🌞' : '🌜';
-
-        themeToggleBtn.addEventListener('click', () => {
+        themeToggle.addEventListener('click', () => {
             if (body.classList.contains('light')) {
-                body.classList.replace('light', 'dark');
-                themeToggleBtn.textContent = '🌜';
-                localStorage.setItem('theme', 'dark');
+                body.classList.remove('light');
+                body.classList.add('dark');
+                themeToggle.textContent = '🌜';
             } else {
-                body.classList.replace('dark', 'light');
-                themeToggleBtn.textContent = '🌞';
-                localStorage.setItem('theme', 'light');
+                body.classList.remove('dark');
+                body.classList.add('light');
+                themeToggle.textContent = '🌞';
             }
+        });
+
+        // Key Slider
+        const keyRange = document.getElementById('keyRange');
+        const keyValue = document.getElementById('keyValue');
+        const startBtn = document.getElementById('startBtn');
+
+        keyValue.textContent = keyRange.value;
+
+        keyRange.addEventListener('input', () => {
+            keyValue.textContent = keyRange.value;
+        });
+
+        startBtn.addEventListener('click', () => {
+            // Logic for generating keys goes here
+            alert(`تعداد کلیدها: ${keyRange.value}`);
         });
     </script>
 </body>
