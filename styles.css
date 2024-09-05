@@ -1,102 +1,155 @@
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: #0d0d0d; /* پس زمینه تیره و مدرن */
-    color: #e0e0e0;
+    background-color: #f5f7fa;
+    color: #333;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
-    overflow: hidden;
 }
 
-/* تغییرات مدرن و آینده‌نگر برای گزینه‌های بازی */
+/* Add a max height and enable scrolling for the game options */
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
     margin-bottom: 20px;
-    max-height: 300px;
+    max-height: 300px; /* Adjust this height based on your layout needs */
     overflow-y: auto;
     padding-right: 10px;
 }
 
 .game-option {
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
-    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 10px;
     text-align: center;
     cursor: pointer;
-    transition: transform 0.3s ease-in-out, border-color 0.3s ease-in-out;
-    background: rgba(255, 255, 255, 0.05);
+    transition: transform 0.3s, border-color 0.3s;
 }
 
+/* Ensure the selected game stands out */
 .game-option.selected {
-    transform: scale(1.1);
-    border-color: #00ffcc;
-    background-color: rgba(0, 255, 204, 0.1); /* رنگ پس زمینه نئونی */
-}
-
-.game-option img {
-    width: 100%;
-    border-radius: 12px;
-    margin-bottom: 10px;
-    transition: all 0.3s ease;
-}
-
-.game-option:hover img {
     transform: scale(1.05);
+    border-color: #007bff;
+    background-color: #f0f8ff; /* Optional: Slight background color change */
 }
 
 .container {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 255, 204, 0.3);
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     padding: 30px;
-    max-width: 600px;
+    max-width: 400px;
     width: 100%;
     text-align: center;
-    backdrop-filter: blur(10px);
 }
 
 h1 {
     margin-bottom: 25px;
-    font-size: 2.5em;
-    color: #00ffcc;
-    text-shadow: 0 0 15px rgba(0, 255, 204, 0.7);
+    font-size: 24px;
+    color: #007bff;
+}
+
+
+.game-option img {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.game-option p {
+    font-weight: 500;
+    color: #555;
+}
+
+.game-option:hover, .game-option.selected {
+    transform: scale(1.05);
+    border-color: #007bff;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #555;
+}
+
+.key-slider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.key-slider input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 8px;
+    border-radius: 5px;
+    background: #ddd;
+    outline: none;
+    transition: background 0.3s;
+}
+
+.key-slider input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #007bff;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.key-slider input[type="range"]:hover::-webkit-slider-thumb {
+    background: #0056b3;
+}
+
+#keyValue {
+    font-size: 18px;
+    font-weight: bold;
+    color: #007bff;
 }
 
 button {
-    background-color: #00ffcc;
-    color: #0d0d0d;
+    background-color: #007bff;
+    color: white;
     border: none;
-    padding: 15px 30px;
-    font-size: 1.2em;
-    border-radius: 50px;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+    transition: background-color 0.3s;
     margin-top: 20px;
 }
 
 button:hover {
-    background-color: #00ffaa;
-    transform: translateY(-5px);
+    background-color: #0056b3;
 }
 
-/* استایل نئونی برای نوار پیشرفت */
+.hidden {
+    display: none;
+}
+
 .progress-bar {
-    background-color: rgba(255, 255, 255, 0.05);
-    border-radius: 50px;
+    background-color: #f5f7fa;
+    border-radius: 8px;
     overflow: hidden;
     margin-top: 25px;
     height: 35px;
     position: relative;
-    box-shadow: 0 0 15px rgba(0, 255, 204, 0.5);
 }
 
 .progress-bar div {
     height: 100%;
-    background: linear-gradient(90deg, #00ffcc, #00ffaa, #00ff88);
+    background-color: #007bff;
     width: 0;
     transition: width 0.5s;
 }
@@ -104,29 +157,45 @@ button:hover {
 #progressText {
     margin-top: 15px;
     font-weight: 600;
-    color: #00ffcc;
-    font-size: 1.5em;
+}
+
+.key-item {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.key-item input {
+    flex: 1;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-right: 12px;
+}
+
+.copyKeyBtn {
+    background-color: #28a745;
+    border: none;
+    padding: 12px 20px;
+    color: white;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.copyKeyBtn:hover {
+    background-color: #218838;
 }
 
 .footer {
     margin-top: 25px;
     font-size: 14px;
     color: #777;
-    text-align: center;
 }
 
-/* بهبود ریسپانسیو برای موبایل */
-@media (max-width: 600px) {
-    h1 {
-        font-size: 2em;
-    }
-
-    .container {
-        padding: 20px;
-        max-width: 100%;
-    }
-
-    .game-option {
-        padding: 10px;
-    }
+#copyStatus {
+    margin-top: 15px;
+    color: green;
 }
