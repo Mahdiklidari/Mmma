@@ -12,16 +12,13 @@
             margin: 0;
             padding: 0;
             transition: background 0.3s ease, color 0.3s ease;
+            background-color: #f4f4f9;
+            color: #000;
         }
 
         body.dark {
             background-color: #1f1f1f;
             color: #fff;
-        }
-
-        body.light {
-            background-color: #f4f4f9;
-            color: #000;
         }
 
         .container {
@@ -33,15 +30,6 @@
             text-align: center;
         }
 
-        h1 {
-            font-size: 3em;
-            margin-bottom: 40px;
-            background: linear-gradient(90deg, #00d4ff, #ff00a8);
-            -webkit-background-clip: text;
-            color: transparent;
-            animation: glow 1.5s ease-in-out infinite alternate;
-        }
-
         .theme-toggle {
             position: absolute;
             top: 20px;
@@ -50,12 +38,21 @@
             cursor: pointer;
             background: none;
             border: none;
-            color: #fff;
+            color: #000;
             transition: color 0.3s ease;
         }
 
-        body.light .theme-toggle {
-            color: #000;
+        body.dark .theme-toggle {
+            color: #fff;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            background: linear-gradient(90deg, #00d4ff, #ff00a8);
+            -webkit-background-clip: text;
+            color: transparent;
+            animation: glow 1.5s ease-in-out infinite alternate;
         }
 
         @keyframes glow {
@@ -69,10 +66,9 @@
 
         .grid-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
             justify-content: center;
-            margin-top: 20px;
         }
 
         .game-option {
@@ -109,24 +105,32 @@
             transform: scale(1.05);
         }
 
-        #keyCountGroup, #progressContainer, #keyContainer, .footer {
-            margin-top: 40px;
-        }
-
-        #keyCountSelect {
+        .key-slider {
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        #keyCountSelect input[type="range"] {
+        #keyRange {
             width: 80%;
             cursor: pointer;
         }
 
-        #keyCountSelect span {
+        #keyValue {
             font-size: 1.2em;
             margin-left: 10px;
+        }
+
+        .form-group, .hidden {
+            display: none;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        #progressContainer {
+            margin-top: 20px;
         }
 
         .progress-bar {
@@ -160,6 +164,10 @@
             transform: scale(1.05);
         }
 
+        .footer {
+            margin-top: 40px;
+        }
+
         .footer p {
             font-size: 0.9em;
             color: rgba(255, 255, 255, 0.6);
@@ -178,21 +186,54 @@
     </style>
 </head>
 <body class="light">
+    <button class="theme-toggle" id="themeToggle">🌞</button>
     <div class="container">
         <h1>Hamster Key</h1>
-        <button class="theme-toggle" id="themeToggle">🌞</button>
         <div id="gameSelectContainer" class="grid-container">
-            <!-- Game options go here -->
+            <div class="game-option" data-game="12">
+                <img src="https://cdn.hamsterkombat.io/fluff/image.webp" alt="Fluff">
+                <p>Fluff Crusade</p>
+            </div>
+            <div class="game-option" data-game="11">
+                <img src="https://cdn.hamsterkombat.io/zoopolis/image.webp" alt="Zoopolis">
+                <p>Zoopolis</p>
+            </div>
+            <div class="game-option" data-game="10">
+                <img src="https://cdn.hamsterkombat.io/tile_trio/image.webp" alt="CafeDash">
+                <p>Tile Trio</p>
+            </div>
+            <div class="game-option" data-game="8">
+                <img src="https://cdn.hamsterkombat.io/mow_trim/image.webp" alt="Mow and Trim">
+                <p>Mow and Trim</p>
+            </div>
+            <div class="game-option" data-game="7">
+                <img src="https://cdn.hamsterkombat.io/polysphere/image.webp" alt="Polysphere">
+                <p>Polysphere</p>
+            </div>
+            <div class="game-option" data-game="6">
+                <img src="https://cdn.hamsterkombat.io/twerk/image.webp" alt="Twerk Race 3D">
+                <p>Twerk Race 3D</p>
+            </div>
+            <div class="game-option" data-game="5">
+                <img src="https://cdn.hamsterkombat.io/merge_away/image.webp" alt="Merge Away">
+                <p>Merge Away</p>
+            </div>
+            <div class="game-option" data-game="2">
+                <img src="https://cdn.hamsterkombat.io/chain_cube/image.webp" alt="Chain Cube 2048">
+                <p>Chain Cube 2048</p>
+            </div>
+            <div class="game-option" data-game="4">
+                <img src="https://cdn.hamsterkombat.io/train_miner/image.webp" alt="Train Miner">
+                <p>Train Miner</p>
+            </div>
         </div>
-
         <div class="form-group hidden" id="keyCountGroup">
             <label for="keyCountSelect">انتخاب تعداد کلیدها:</label>
-            <div id="keyCountSelect">
+            <div id="keyCountSelect" class="key-slider">
                 <input type="range" min="1" max="12" value="1" id="keyRange">
                 <span id="keyValue">1</span>
             </div>
         </div>
-
         <button id="startBtn" class="hidden">ایجاد کلیدها</button>
 
         <div id="progressContainer" class="hidden">
@@ -213,34 +254,31 @@
 
         <button id="generateMoreBtn" class="hidden">کلیدهای بیشتری تولید کنید</button>
         <p id="copyStatus" class="hidden">کلیدها در کلیپ بورد کپی شدند!</p>
-
+        
         <div class="footer">
-            <p>سلب مسئولیت: ما هیچ تضمینی در قبال استفاده از این سایت نمی‌دهیم.</p>
+            <p>سلب مسئولیت: ما هیچ تضمینی در قبال استفاده از این سایت نمی‌دهیم</p>
             <button id="sourceCode">گروه پشتیبانی</button>
         </div>
     </div>
 
     <script>
         // Theme Toggle
-        const themeToggleBtn = document.getElementById('themeToggle');
+        const themeToggle = document.getElementById('themeToggle');
         const body = document.body;
 
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        body.classList = savedTheme;
-        themeToggleBtn.textContent = savedTheme === 'light' ? '🌞' : '🌜';
-
-        themeToggleBtn.addEventListener('click', () => {
+        themeToggle.addEventListener('click', () => {
             if (body.classList.contains('light')) {
-                body.classList.replace('light', 'dark');
-                themeToggleBtn.textContent = '🌜';
-                localStorage.setItem('theme', 'dark');
+                body.classList.remove('light');
+                body.classList.add('dark');
+                themeToggle.textContent = '🌜';
             } else {
-                body.classList.replace('dark', 'light');
-                themeToggleBtn.textContent = '🌞';
-                localStorage.setItem('theme', 'light');
+                body.classList.remove('dark');
+                body.classList.add('light');
+                themeToggle.textContent = '🌞';
             }
         });
- // Key Slider
+
+        // Key Slider
         const keyRange = document.getElementById('keyRange');
         const keyValue = document.getElementById('keyValue');
         const startBtn = document.getElementById('startBtn');
@@ -254,12 +292,6 @@
         startBtn.addEventListener('click', () => {
             // Logic for generating keys goes here
             alert(`تعداد کلیدها: ${keyRange.value}`);
-        });
-
-        // Example: Show/hide elements based on key count or other conditions
-        keyRange.addEventListener('input', () => {
-            const keyCount = keyRange.value;
-            // Adjust the UI or perform actions based on keyCount
         });
     </script>
 </body>
