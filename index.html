@@ -179,45 +179,10 @@
 </head>
 <body class="light">
     <div class="container">
-        <button class="theme-toggle" id="themeToggle">🌞</button>
         <h1>Hamster Key</h1>
+        <button class="theme-toggle" id="themeToggle">🌞</button>
         <div id="gameSelectContainer" class="grid-container">
-            <div class="game-option" data-game="12">
-                <img src="https://cdn.hamsterkombat.io/fluff/image.webp" alt="Fluff">
-                <p>Fluff Crusade</p>
-            </div>
-            <div class="game-option" data-game="11">
-                <img src="https://cdn.hamsterkombat.io/zoopolis/image.webp" alt="Zoopolis">
-                <p>Zoopolis</p>
-            </div>
-            <div class="game-option" data-game="10">
-                <img src="https://cdn.hamsterkombat.io/tile_trio/image.webp" alt="CafeDash">
-                <p>Tile Trio</p>
-            </div>
-            <div class="game-option" data-game="8">
-                <img src="https://cdn.hamsterkombat.io/mow_trim/image.webp" alt="Mow and Trim">
-                <p>Mow and Trim</p>
-            </div>
-            <div class="game-option" data-game="7">
-                <img src="https://cdn.hamsterkombat.io/polysphere/image.webp" alt="Polysphere">
-                <p>Polysphere</p>
-            </div>
-            <div class="game-option" data-game="6">
-                <img src="https://cdn.hamsterkombat.io/twerk/image.webp" alt="Twerk Race 3D">
-                <p>Twerk Race 3D</p>
-            </div>
-            <div class="game-option" data-game="5">
-                <img src="https://cdn.hamsterkombat.io/merge_away/image.webp" alt="Merge Away">
-                <p>Merge Away</p>
-            </div>
-            <div class="game-option" data-game="2">
-                <img src="https://cdn.hamsterkombat.io/chain_cube/image.webp" alt="Chain Cube 2048">
-                <p>Chain Cube 2048</p>
-            </div>
-            <div class="game-option" data-game="4">
-                <img src="https://cdn.hamsterkombat.io/train_miner/image.webp" alt="Train Miner">
-                <p>Train Miner</p>
-            </div>
+            <!-- Game options go here -->
         </div>
 
         <div class="form-group hidden" id="keyCountGroup">
@@ -248,31 +213,34 @@
 
         <button id="generateMoreBtn" class="hidden">کلیدهای بیشتری تولید کنید</button>
         <p id="copyStatus" class="hidden">کلیدها در کلیپ بورد کپی شدند!</p>
-        
+
         <div class="footer">
-            <p>سلب مسئولیت: ما هیچ تضمینی در قبال استفاده از این سایت نمی‌دهیم</p>
+            <p>سلب مسئولیت: ما هیچ تضمینی در قبال استفاده از این سایت نمی‌دهیم.</p>
             <button id="sourceCode">گروه پشتیبانی</button>
         </div>
     </div>
 
     <script>
         // Theme Toggle
-        const themeToggle = document.getElementById('themeToggle');
+        const themeToggleBtn = document.getElementById('themeToggle');
         const body = document.body;
 
-        themeToggle.addEventListener('click', () => {
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        body.classList = savedTheme;
+        themeToggleBtn.textContent = savedTheme === 'light' ? '🌞' : '🌜';
+
+        themeToggleBtn.addEventListener('click', () => {
             if (body.classList.contains('light')) {
-                body.classList.remove('light');
-                body.classList.add('dark');
-                themeToggle.textContent = '🌜';
+                body.classList.replace('light', 'dark');
+                themeToggleBtn.textContent = '🌜';
+                localStorage.setItem('theme', 'dark');
             } else {
-                body.classList.remove('dark');
-                body.classList.add('light');
-                themeToggle.textContent = '🌞';
+                body.classList.replace('dark', 'light');
+                themeToggleBtn.textContent = '🌞';
+                localStorage.setItem('theme', 'light');
             }
         });
-
-        // Key Slider
+ // Key Slider
         const keyRange = document.getElementById('keyRange');
         const keyValue = document.getElementById('keyValue');
         const startBtn = document.getElementById('startBtn');
@@ -286,6 +254,12 @@
         startBtn.addEventListener('click', () => {
             // Logic for generating keys goes here
             alert(`تعداد کلیدها: ${keyRange.value}`);
+        });
+
+        // Example: Show/hide elements based on key count or other conditions
+        keyRange.addEventListener('input', () => {
+            const keyCount = keyRange.value;
+            // Adjust the UI or perform actions based on keyCount
         });
     </script>
 </body>
