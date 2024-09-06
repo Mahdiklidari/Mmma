@@ -100,7 +100,7 @@
                     document.getElementById("typeText").innerHTML += "<br>";
                     i = 0;
                     typeWriterPart2();
-                }, 500); // نیم ثانیه توقف
+                }, 300); // 300 میلی‌ثانیه توقف
             }
         }
 
@@ -108,7 +108,7 @@
             if (i < messagePart2.length) {
                 document.getElementById("typeText").innerHTML += messagePart2.charAt(i);
                 i++;
-                setTimeout(typeWriterPart2, 30); // سرعت تایپ بخش دوم سریع‌تر است
+                setTimeout(typeWriterPart2, 50); // سرعت تایپ همانند خط اول
             }
         }
 
