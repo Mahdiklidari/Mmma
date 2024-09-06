@@ -1,146 +1,21 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ورود به سایت</title>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-image: url('https://raw.githubusercontent.com/Mahdiklidari/Jsia/main/_904470ae-9375-40c4-a143-0fb3c3ba3ddc.jpeg');
-            background-size: cover;
-            font-family: Arial, sans-serif;
-            color: white;
-            margin: 0;
-        }
-        .container {
-            text-align: center;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            width: 90%;
-            max-width: 400px;
-            overflow-wrap: break-word;
-        }
-        .container input[type="text"] {
-            padding: 5px;
-            margin: 10px 0;
-            width: 80%;
-            border: none;
-            border-radius: 5px;
-            text-align: center;
-        }
-        .container button {
-            padding: 10px 20px;
-            margin: 10px;
-            border: none;
-            background-color: #007BFF;
-            color: white;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            width: 100%;
-            max-width: 200px;
-        }
-        .container button:hover {
-            background-color: #0056b3;
-        }
-        .text {
-            direction: rtl;
-            text-align: right;
-            margin-bottom: 20px;
-            white-space: nowrap;
-            overflow: hidden;
-            border-right: .15em solid white;
-            width: 100%;
-            animation: blink-caret 0.75s step-end infinite;
-        }
-        @keyframes blink-caret {
-            from, to { border-color: transparent }
-            50% { border-color: white; }
-        }
-        @media (max-width: 600px) {
-            .container {
-                padding: 15px;
-            }
-            .container input[type="text"], .container button {
-                padding: 8px;
-                margin: 8px 0;
-            }
-        }
-    </style>
+    <title>Day/Night Mode Toggle</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <p class="text" id="typeText"></p>
-        <input type="text" id="code" placeholder="کد ورود را وارد کنید">
-        <br>
-        <button onclick="joinSupportGroup()">عضویت در گروه پشتیبانی</button>
-        <button onclick="validateCode()">تایید</button>
+    <div class="theme-toggle" id="theme-toggle">
+        <img id="icon" src="https://raw.githubusercontent.com/Mahdiklidari/Jsia/main/sun%20(1).svg" alt="Day Mode">
     </div>
 
-    <script>
-        const correctCode = "8134";
-        const expirationTime = 24 * 60 * 60 * 1000; // 24 ساعت به میلی‌ثانیه
-        const messagePart1 = "برای ورود به سایت اصلی باید کد ورود را از گروه پشتیبانی در";
-        const messagePart2 = "اینجا وارد کنید";
-        let i = 0;
-        
-        function typeWriter() {
-            if (i < messagePart1.length) {
-                document.getElementById("typeText").innerHTML += messagePart1.charAt(i);
-                i++;
-                setTimeout(typeWriter, 50);
-            } else {
-                setTimeout(() => {
-                    document.getElementById("typeText").innerHTML += "<br>";
-                    i = 0;
-                    typeWriterPart2();
-                }, 300); // 300 میلی‌ثانیه توقف
-            }
-        }
+    <div class="content">
+        <h1>Welcome to my website!</h1>
+        <p>This is a simple day/night mode toggle example.</p>
+    </div>
 
-        function typeWriterPart2() {
-            if (i < messagePart2.length) {
-                document.getElementById("typeText").innerHTML += messagePart2.charAt(i);
-                i++;
-                setTimeout(typeWriterPart2, 50); // سرعت تایپ همانند خط اول
-            }
-        }
-
-        function joinSupportGroup() {
-            window.location.href = "https://t.me/+VmAOJ94rwbkzNzk0";
-        }
-
-        function validateCode() {
-            const userCode = document.getElementById("code").value;
-            if (userCode === correctCode) {
-                const now = new Date().getTime();
-                localStorage.setItem("authenticated", "true");
-                localStorage.setItem("timestamp", now);
-                window.location.href = "https://mahdiklidari.github.io/Hamster-key-/";
-            } else {
-                alert("رمز اشتباه است");
-            }
-        }
-
-        window.onload = function() {
-            const authenticated = localStorage.getItem("authenticated");
-            const timestamp = localStorage.getItem("timestamp");
-            const now = new Date().getTime();
-
-            if (authenticated === "true" && timestamp && (now - timestamp < expirationTime)) {
-                window.location.href = "https://mahdiklidari.github.io/Hamster-key-/";
-            } else {
-                localStorage.removeItem("authenticated");
-                localStorage.removeItem("timestamp");
-            }
-            typeWriter();
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
