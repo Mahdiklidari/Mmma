@@ -24,6 +24,7 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             width: 90%;
             max-width: 400px;
+            overflow-wrap: break-word;
         }
         .container input[type="text"] {
             padding: 5px;
@@ -52,17 +53,18 @@
             direction: rtl;
             text-align: right;
             margin-bottom: 20px;
-            overflow-wrap: break-word; /* برای شکستن کلمات به خط بعد */
+            white-space: nowrap;
+            overflow: hidden;
             border-right: .15em solid white;
-            white-space: normal; /* اجازه بده که متن به خط بعد برود */
-            animation: typing 5s steps(40, end), blink-caret 0.75s step-end infinite;
+            width: 100%;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
         }
         @keyframes typing {
-            from { width: 0; }
-            to { width: 100%; }
+            from { width: 0 }
+            to { width: 100% }
         }
         @keyframes blink-caret {
-            from, to { border-color: transparent; }
+            from, to { border-color: transparent }
             50% { border-color: white; }
         }
         @media (max-width: 600px) {
@@ -90,7 +92,7 @@
         const expirationTime = 24 * 60 * 60 * 1000; // 24 ساعت به میلی‌ثانیه
         const message = "برای ورود به سایت اصلی باید کد ورود را از گروه پشتیبانی در اینجا وارد کنید";
         let i = 0;
-
+        
         function typeWriter() {
             if (i < message.length) {
                 document.getElementById("typeText").innerHTML += message.charAt(i);
