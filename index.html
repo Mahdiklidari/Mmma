@@ -57,11 +57,7 @@
             overflow: hidden;
             border-right: .15em solid white;
             width: 100%;
-            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
-        }
-        @keyframes typing {
-            from { width: 0 }
-            to { width: 100% }
+            animation: blink-caret 0.75s step-end infinite;
         }
         @keyframes blink-caret {
             from, to { border-color: transparent }
@@ -90,14 +86,29 @@
     <script>
         const correctCode = "8134";
         const expirationTime = 24 * 60 * 60 * 1000; // 24 ساعت به میلی‌ثانیه
-        const message = "برای ورود به سایت اصلی باید کد ورود را از گروه پشتیبانی در اینجا وارد کنید";
+        const messagePart1 = "برای ورود به سایت اصلی باید کد ورود را از گروه ";
+        const messagePart2 = "پشتیبانی در اینجا وارد کنید";
         let i = 0;
         
         function typeWriter() {
-            if (i < message.length) {
-                document.getElementById("typeText").innerHTML += message.charAt(i);
+            if (i < messagePart1.length) {
+                document.getElementById("typeText").innerHTML += messagePart1.charAt(i);
                 i++;
                 setTimeout(typeWriter, 50);
+            } else {
+                setTimeout(() => {
+                    document.getElementById("typeText").innerHTML += "<br>";
+                    i = 0;
+                    typeWriterPart2();
+                }, 1000); // یک ثانیه توقف
+            }
+        }
+
+        function typeWriterPart2() {
+            if (i < messagePart2.length) {
+                document.getElementById("typeText").innerHTML += messagePart2.charAt(i);
+                i++;
+                setTimeout(typeWriterPart2, 50);
             }
         }
 
