@@ -86,8 +86,8 @@
     <script>
         const correctCode = "8134";
         const expirationTime = 24 * 60 * 60 * 1000; // 24 ساعت به میلی‌ثانیه
-        const messagePart1 = "برای ورود به سایت اصلی باید کد ورود را از گروه ";
-        const messagePart2 = "پشتیبانی در اینجا وارد کنید";
+        const messagePart1 = "برای ورود به سایت اصلی باید کد ورود را از گروه پشتیبانی در";
+        const messagePart2 = "اینجا وارد کنید";
         let i = 0;
         
         function typeWriter() {
@@ -100,7 +100,7 @@
                     document.getElementById("typeText").innerHTML += "<br>";
                     i = 0;
                     typeWriterPart2();
-                }, 1000); // یک ثانیه توقف
+                }, 500); // نیم ثانیه توقف
             }
         }
 
@@ -108,7 +108,7 @@
             if (i < messagePart2.length) {
                 document.getElementById("typeText").innerHTML += messagePart2.charAt(i);
                 i++;
-                setTimeout(typeWriterPart2, 50);
+                setTimeout(typeWriterPart2, 30); // سرعت تایپ بخش دوم سریع‌تر است
             }
         }
 
