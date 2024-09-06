@@ -1,80 +1,135 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hamster Key</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>ورود به سایت</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('https://raw.githubusercontent.com/Mahdiklidari/Jsia/main/_904470ae-9375-40c4-a143-0fb3c3ba3ddc.jpeg');
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            color: white;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            width: 90%;
+            max-width: 400px;
+            overflow-wrap: break-word;
+        }
+        .container input[type="text"] {
+            padding: 5px;
+            margin: 10px 0;
+            width: 80%;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .container button {
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+            max-width: 200px;
+        }
+        .container button:hover {
+            background-color: #0056b3;
+        }
+        .text {
+            direction: rtl;
+            text-align: right;
+            margin-bottom: 20px;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: .15em solid white;
+            width: 100%;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: white; }
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+            .container input[type="text"], .container button {
+                padding: 8px;
+                margin: 8px 0;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h1>Hamster Key</h1>
-        <div id="gameSelectContainer" class="grid-container">
-            <div class="game-option" data-game="12">
-                <img src="https://cdn.hamsterkombat.io/fluff/image.webp" alt="Fluff">
-                <p>Fluff Crusade</p>
-            </div>
-            <div class="game-option" data-game="11">
-                <img src="https://cdn.hamsterkombat.io/zoopolis/image.webp" alt="Zoopolis">
-                <p>Zoopolis</p>
-            </div>
-            <div class="game-option" data-game="10">
-                <img src="https://cdn.hamsterkombat.io/tile_trio/image.webp" alt="Tile Trio">
-                <p>Tile Trio</p>
-            </div>
-            <div class="game-option" data-game="8">
-                <img src="https://cdn.hamsterkombat.io/mow_trim/image.webp" alt="Mow and Trim">
-                <p>Mow and Trim</p>
-            </div>
-            <div class="game-option" data-game="7">
-                <img src="https://cdn.hamsterkombat.io/polysphere/image.webp" alt="Polysphere">
-                <p>Polysphere</p>
-            </div>
-            <div class="game-option" data-game="6">
-                <img src="https://cdn.hamsterkombat.io/twerk/image.webp" alt="Twerk Race 3D">
-                <p>Twerk Race 3D</p>
-            </div>
-            <div class="game-option" data-game="5">
-                <img src="https://cdn.hamsterkombat.io/merge_away/image.webp" alt="Merge Away">
-                <p>Merge Away</p>
-            </div>
-            <div class="game-option" data-game="2">
-                <img src="https://cdn.hamsterkombat.io/chain_cube/image.webp" alt="Chain Cube 2048">
-                <p>Chain Cube 2048</p>
-            </div>
-            <div class="game-option" data-game="4">
-                <img src="https://cdn.hamsterkombat.io/train_miner/image.webp" alt="Train Miner">
-                <p>Train Miner</p>
-            </div>
-        </div>
-        <div class="form-group hidden" id="keyCountGroup">
-            <label for="keyCountSelect">انتخاب تعداد کلیدها:</label>
-            <div id="keyCountSelect" class="key-slider">
-                <input type="range" min="1" max="12" value="1" id="keyRange">
-                <span id="keyValue">1</span>
-            </div>
-        </div>
-        <button id="startBtn" class="hidden">ایجاد کلید</button>
-
-        <div id="progressContainer" class="hidden">
-            <div class="progress-bar">
-                <div id="progressBar"></div>
-            </div>
-            <p id="progressText">0%</p>
-            <p id="progressLog">شروع...</p>
-        </div>
-        <div id="keyContainer" class="hidden">
-            <div class="key-item">
-                <input type="text" id="keyInput" readonly>
-                <button class="copyKeyBtn" id="copyKeyBtn">کپی</button>
-            </div>
-            <p id="copyStatus"></p>
-        </div>    
-        <div class="footer">
-            <p>وب‌سایت توسط Hamster Games طراحی شده است</p>
-        </div>
+        <p class="text" id="typeText"></p>
+        <input type="text" id="code" placeholder="کد ورود را وارد کنید">
+        <br>
+        <button onclick="joinSupportGroup()">عضویت در گروه پشتیبانی</button>
+        <button onclick="validateCode()">تایید</button>
     </div>
-    <script src="script.js"></script>
+
+    <script>
+        const correctCode = "8134";
+        const expirationTime = 24 * 60 * 60 * 1000; // 24 ساعت به میلی‌ثانیه
+        const message = "برای ورود به سایت اصلی باید کد ورود را از گروه پشتیبانی در اینجا وارد کنید";
+        let i = 0;
+        
+        function typeWriter() {
+            if (i < message.length) {
+                document.getElementById("typeText").innerHTML += message.charAt(i);
+                i++;
+                setTimeout(typeWriter, 50);
+            }
+        }
+
+        function joinSupportGroup() {
+            window.location.href = "https://t.me/+VmAOJ94rwbkzNzk0";
+        }
+
+        function validateCode() {
+            const userCode = document.getElementById("code").value;
+            if (userCode === correctCode) {
+                const now = new Date().getTime();
+                localStorage.setItem("authenticated", "true");
+                localStorage.setItem("timestamp", now);
+                window.location.href = "https://mahdiklidari.github.io/Hamster-key-/";
+            } else {
+                alert("رمز اشتباه است");
+            }
+        }
+
+        window.onload = function() {
+            const authenticated = localStorage.getItem("authenticated");
+            const timestamp = localStorage.getItem("timestamp");
+            const now = new Date().getTime();
+
+            if (authenticated === "true" && timestamp && (now - timestamp < expirationTime)) {
+                window.location.href = "https://mahdiklidari.github.io/Hamster-key-/";
+            } else {
+                localStorage.removeItem("authenticated");
+                localStorage.removeItem("timestamp");
+            }
+            typeWriter();
+        }
+    </script>
 </body>
 </html>
